@@ -1,0 +1,1 @@
+SELECT 'sakiladb/mysql has successfully initialized.' AS sakiladb_completion_message;

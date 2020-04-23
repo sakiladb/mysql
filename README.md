@@ -1,8 +1,8 @@
 # sakiladb/mysql
 
 MySQL docker image preloaded with the [Sakila](https://dev.mysql.com/doc/sakila/en/)
-example database. See on
-[Docker Hub](https://hub.docker.com/r/sakiladb/sqlserver).
+example database.
+See on [Docker Hub](https://hub.docker.com/r/sakiladb/sqlserver).
 
 By default these are created:
 - database: `sakila`
@@ -10,17 +10,25 @@ By default these are created:
 
 
 ```shell script
-docker run -p 5432:5432 -d sakiladb/mysql:latest
+docker run -p 3306:3306 -d sakiladb/mysql:latest
 ```
 
 Or use a specific version of MySQL (see all available image tags
 on [Docker Hub](https://hub.docker.com/r/sakiladb/mysql/tags).)
 
 ```shell script
-docker run -p 5432:5432 -d sakiladb/mysql:8
+docker run -p 3306:3306 -d sakiladb/mysql:8
 ```
 
-Note that it may take some time for the container to boot up.
+Note that it may take some time for the container to boot up. Eventually the container's
+docker logs will show:
+
+```
+sakiladb/sqlserver has successfully initialized.
+```
+
+Note that even after this message is logged, it may take another few moments for
+it to become available (due to a final server restart etc).
 
 Verify that all is well (using the `mysql` command line tool):
 
