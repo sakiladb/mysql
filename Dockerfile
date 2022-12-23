@@ -26,3 +26,8 @@ RUN rm -rf /var/lib/mysql/*
 RUN mv /data/* /var/lib/mysql/
 
 USER mysql
+
+# See: https://dev.to/mdemblani/docker-container-uncaught-kill-signal-10l6
+COPY ./signal-listener.sh /sakila/run.sh
+# Entrypoint overload to catch the ctrl+c and stop signals
+ENTRYPOINT ["/bin/bash", "/sakila/run.sh"]
