@@ -8,6 +8,9 @@ COPY ./3-sakila-complete.sql /docker-entrypoint-initdb.d/step_3.sql
 # https://serverfault.com/questions/796762/creating-a-docker-mysql-container-with-a-prepared-database-scheme
 RUN ["sed", "-i", "s/exec \"$@\"/echo \"skipping...\"/", "/usr/local/bin/docker-entrypoint.sh"]
 
+RUN ["cat", "/usr/local/bin/docker-entrypoint.sh"]
+
+
 ENV MYSQL_ROOT_PASSWORD=p_ssW0rd
 ENV MYSQL_DATABASE=sakila
 ENV MYSQL_USER=sakila
@@ -18,7 +21,13 @@ ENV MYSQL_PASSWORD=p_ssW0rd
 #       Changing the volume from within the Dockerfile: If any build steps change the data within the volume after
 #       it has been declared, those changes will be discarded.
 RUN ["/usr/local/bin/docker-entrypoint.sh", "mysqld", "--datadir", "/wubble"]
+CMD ["echo", "huzzah"]
+
 
 FROM mysql:8
 
+ENV MYSQL_ROOT_PASSWORD=p_ssW0rd
+ENV MYSQL_DATABASE=sakila
+ENV MYSQL_USER=sakila
+ENV MYSQL_PASSWORD=p_ssW0rd
 COPY --from=builder /wubble /var/lib/mysql
