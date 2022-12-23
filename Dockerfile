@@ -10,6 +10,7 @@ RUN ["sed", "-i", "s/exec \"$@\"/echo \"skipping...\"/", "/usr/local/bin/docker-
 
 RUN ["cat", "/usr/local/bin/docker-entrypoint.sh"]
 
+USER mysql
 
 ENV MYSQL_ROOT_PASSWORD=p_ssW0rd
 ENV MYSQL_DATABASE=sakila
