@@ -17,8 +17,8 @@ ENV MYSQL_PASSWORD=p_ssW0rd
 # https://docs.docker.com/engine/reference/builder/#volume :
 #       Changing the volume from within the Dockerfile: If any build steps change the data within the volume after
 #       it has been declared, those changes will be discarded.
-RUN ["/usr/local/bin/docker-entrypoint.sh", "mysqld", "--datadir", "/initialized-db"]
+RUN ["/usr/local/bin/docker-entrypoint.sh", "mysqld", "--datadir", "/wubble"]
 
 FROM mysql:8
 
-COPY --from=builder /initialized-db /var/lib/mysql
+COPY --from=builder /wubble /var/lib/mysql
