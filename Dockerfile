@@ -20,11 +20,8 @@ ENV MYSQL_PASSWORD=p_ssW0rd
 #       it has been declared, those changes will be discarded.
 
 RUN ["/usr/local/bin/docker-entrypoint.sh", "mysqld"]
-#ENTRYPOINT echo "Done building image!"
-
 
 FROM mysql:8
-
 ENV MYSQL_ROOT_PASSWORD=p_ssW0rd
 ENV MYSQL_DATABASE=sakila
 ENV MYSQL_USER=sakila
