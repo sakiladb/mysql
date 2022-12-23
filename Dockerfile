@@ -1,4 +1,4 @@
-FROM mysql:8 as builder
+FROM mysql:5 as builder
 ENV MYSQL_ROOT_PASSWORD=p_ssW0rd
 ENV MYSQL_DATABASE=sakila
 ENV MYSQL_USER=sakila
