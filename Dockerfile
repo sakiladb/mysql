@@ -30,7 +30,7 @@ RUN echo "We are before the thingy"
 RUN ["/usr/local/bin/docker-entrypoint.sh", "mysqld"]
 RUN echo "We are after the thingy"
 
-CMD ["echo", "huzzah"]
+#CMD ["echo", "huzzah"]
 ENTRYPOINT ["/bin/bash", "-c", "echo Welcome, huzzah!"]
 
 
@@ -40,10 +40,8 @@ ENV MYSQL_ROOT_PASSWORD=p_ssW0rd
 ENV MYSQL_DATABASE=sakila
 ENV MYSQL_USER=sakila
 ENV MYSQL_PASSWORD=p_ssW0rd
-#COPY --from=builder /outer/wubble /var/lib/mysql
 COPY --from=builder /var/lib/mysql /data
 RUN chmod -R 777 /data
 USER mysql
 
-RUN echo "We're in the final container, about to do her goodo"
 CMD ["--datadir", "/data"]
