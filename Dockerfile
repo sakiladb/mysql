@@ -1,4 +1,8 @@
 FROM mysql:8 as builder
+ENV MYSQL_ROOT_PASSWORD=p_ssW0rd
+ENV MYSQL_DATABASE=sakila
+ENV MYSQL_USER=sakila
+ENV MYSQL_PASSWORD=p_ssW0rd
 
 COPY ./1-sakila-schema.sql /docker-entrypoint-initdb.d/step_1.sql
 COPY ./2-sakila-data.sql /docker-entrypoint-initdb.d/step_2.sql
@@ -9,16 +13,6 @@ COPY ./3-sakila-complete.sql /docker-entrypoint-initdb.d/step_3.sql
 RUN ["sed", "-i", "s/exec \"$@\"/echo \"skipping...\"/", "/usr/local/bin/docker-entrypoint.sh"]
 
 USER mysql
-ENV MYSQL_ROOT_PASSWORD=p_ssW0rd
-ENV MYSQL_DATABASE=sakila
-ENV MYSQL_USER=sakila
-ENV MYSQL_PASSWORD=p_ssW0rd
-
-# Need to change the datadir to something else that /var/lib/mysql because the parent docker file defines it as a volume.
-# https://docs.docker.com/engine/reference/builder/#volume :
-#       Changing the volume from within the Dockerfile: If any build steps change the data within the volume after
-#       it has been declared, those changes will be discarded.
-
 RUN ["/usr/local/bin/docker-entrypoint.sh", "mysqld"]
 
 FROM mysql:8
