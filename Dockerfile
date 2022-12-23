@@ -26,7 +26,8 @@ ENV MYSQL_PASSWORD=p_ssW0rd
 #       it has been declared, those changes will be discarded.
 
 RUN echo "We are before the thingy"
-RUN ["/usr/local/bin/docker-entrypoint.sh", "mysqld", "--datadir", "/outer/wubble"]
+# "/usr/local/bin/docker-entrypoint.sh mysqld --datadir /outer/wubble"
+RUN ["/usr/local/bin/docker-entrypoint.sh", "mysqld"]
 RUN echo "We are after the thingy"
 
 CMD ["echo", "huzzah"]
@@ -39,7 +40,10 @@ ENV MYSQL_ROOT_PASSWORD=p_ssW0rd
 ENV MYSQL_DATABASE=sakila
 ENV MYSQL_USER=sakila
 ENV MYSQL_PASSWORD=p_ssW0rd
-COPY --from=builder /outer/wubble /var/lib/mysql
+#COPY --from=builder /outer/wubble /var/lib/mysql
+COPY --from=builder /var/lib/mysql /data
+RUN chmod -R 777 /data
 USER mysql
 
-RUN echo "We're in the final container, about to do her"
+RUN echo "We're in the final container, about to do her goodo"
+CMD ["--datadir", "/data"]
