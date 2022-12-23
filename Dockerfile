@@ -24,8 +24,13 @@ ENV MYSQL_PASSWORD=p_ssW0rd
 # https://docs.docker.com/engine/reference/builder/#volume :
 #       Changing the volume from within the Dockerfile: If any build steps change the data within the volume after
 #       it has been declared, those changes will be discarded.
+
+RUN echo "We are before the thingy"
 RUN ["/usr/local/bin/docker-entrypoint.sh", "mysqld", "--datadir", "/outer/wubble"]
+RUN echo "We are after the thingy"
+
 CMD ["echo", "huzzah"]
+ENTRYPOINT ["/bin/bash", "-c", "echo Welcome, huzzah!"]
 
 
 FROM mysql:8
@@ -36,3 +41,5 @@ ENV MYSQL_USER=sakila
 ENV MYSQL_PASSWORD=p_ssW0rd
 COPY --from=builder /outer/wubble /var/lib/mysql
 USER mysql
+
+RUN echo "We're in the final container, about to do her"
