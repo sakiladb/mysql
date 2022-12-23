@@ -28,10 +28,7 @@ ENV MYSQL_USER=sakila
 ENV MYSQL_PASSWORD=p_ssW0rd
 
 COPY --from=builder /var/lib/mysql /data
-RUN chmod -R 777 /data
 RUN rm -rf /var/lib/mysql/*
 RUN mv /data/* /var/lib/mysql/
 
 USER mysql
-
-#CMD ["--datadir", "/data"]
