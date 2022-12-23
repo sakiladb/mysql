@@ -20,7 +20,7 @@ ENV MYSQL_PASSWORD=p_ssW0rd
 #       it has been declared, those changes will be discarded.
 
 RUN ["/usr/local/bin/docker-entrypoint.sh", "mysqld"]
-ENTRYPOINT echo "Done building image!"
+#ENTRYPOINT echo "Done building image!"
 
 
 FROM mysql:8
