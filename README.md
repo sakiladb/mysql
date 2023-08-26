@@ -2,7 +2,7 @@
 
 MySQL docker image preloaded with the [Sakila](https://dev.mysql.com/doc/sakila/en/)
 example database.
-See on [Docker Hub](https://hub.docker.com/r/sakiladb/sqlserver).
+See on [Docker Hub](https://hub.docker.com/r/sakiladb/mysql).
 
 By default these are created:
 
