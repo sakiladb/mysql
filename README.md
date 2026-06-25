@@ -120,9 +120,9 @@ Each MySQL version is published as its own image tag. `latest` tracks the newest
 
 | MySQL     | sakiladb Release | Architecture     | Docker Hub                    | GitHub Container Registry             |
 |-----------|------------------|------------------|-------------------------------|---------------------------------------|
-| 8 (8.4.x) | `v8.0.1`         | `amd64`, `arm64` | `sakiladb/mysql:8`, `:latest` | `ghcr.io/sakiladb/mysql:8`, `:latest` |
-| 5.7       | `v5.7.1`         | `amd64`          | `sakiladb/mysql:5.7`          | `ghcr.io/sakiladb/mysql:5.7`          |
-| 5.6       | `v5.6.1`         | `amd64`          | `sakiladb/mysql:5.6`          | `ghcr.io/sakiladb/mysql:5.6`          |
+| 8 (8.4.x) | `v8.0.2`         | `amd64`, `arm64` | `sakiladb/mysql:8`, `:latest` | `ghcr.io/sakiladb/mysql:8`, `:latest` |
+| 5.7       | `v5.7.2`         | `amd64`          | `sakiladb/mysql:5.7`          | `ghcr.io/sakiladb/mysql:5.7`          |
+| 5.6       | `v5.6.2`         | `amd64`          | `sakiladb/mysql:5.6`          | `ghcr.io/sakiladb/mysql:5.6`          |
 
 The tag `8` follows MySQL's modern major-version scheme and tracks the newest 8-series LTS (currently
 **8.4**); `5.6` and `5.7` keep MySQL's legacy `major.minor` naming (where the minor was the de-facto
@@ -149,6 +149,8 @@ version — the version is derived from the tag, so there are no per-version bra
 
 ### 2026-06-25
 
+- **`customer_list` / `staff_list` zip column renamed `zip code` → `zip_code`** (`v5.6.2`, `v5.7.2`,
+  `v8.0.2`) — drops the space so the column is addressable unquoted, matching the rest of the family.
 - **Modernized as a consistent sakiladb test fixture.** Removed the spatial `address.location`
   column (and its data) so `address` is 8 columns across the family — the one trim from upstream
   MySQL Sakila. Republished `5.6`, `5.7`, and `8`.
