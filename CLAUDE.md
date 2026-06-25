@@ -124,17 +124,17 @@ env var** in the workflow. That env var is the one piece of state that cannot be
 ("which version is currently newest"). Because `latest` is gated on a fixed value rather than push
 order, **tag-push order is irrelevant** and republishing an old version can never steal `latest`.
 
-### Recipe: release a new major version (e.g. MySQL 9)
+### Recipe: release a new major version (e.g. MySQL 10)
 
 ```bash
 git switch master && git pull
-# 1. In .github/workflows/docker-publish.yml, bump:  LATEST_VERSION: "9"
-# 2. (Optional) bump the Dockerfile's `ARG MYSQL_VERSION=9` default, for local builds.
-git commit -am "mysql 9 is now the newest"
-git push origin master                       # build-only smoke test (builds mysql:9 via the new default)
+# 1. In .github/workflows/docker-publish.yml, bump:  LATEST_VERSION: "10"
+# 2. (Optional) bump the Dockerfile's `ARG MYSQL_VERSION=10` default, for local builds.
+git commit -am "mysql 10 is now the newest"
+git push origin master                       # build-only smoke test (builds mysql:10 via the new default)
 
-# 3. Tag to publish `9` + `latest` (Docker Hub + GHCR):
-git tag v9.0.0 && git push origin v9.0.0
+# 3. Tag to publish `10` + `latest` (Docker Hub + GHCR):
+git tag v10.0.0 && git push origin v10.0.0
 ```
 
 That's it — no new branch, and nothing to "demote": the previous newest stops getting `latest`
