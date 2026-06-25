@@ -87,12 +87,12 @@ rental                      table  16044  rental_id, rental_date, inventory_id, 
 staff                       table  2      staff_id, first_name, last_name, address_id, picture, email, store_id, active, username, password, last_update
 store                       table  2      store_id, manager_staff_id, address_id, last_update
 actor_info                  view   200    actor_id, first_name, last_name, film_info
-customer_list               view   599    ID, name, address, zip_code, phone, city, country, notes, SID
+customer_list               view   599    ID, name, address, zip code, phone, city, country, notes, SID
 film_list                   view   997    FID, title, description, category, price, length, rating, actors
 nicer_but_slower_film_list  view   997    FID, title, description, category, price, length, rating, actors
 sales_by_film_category      view   16     category, total_sales
 sales_by_store              view   2      store, manager, total_sales
-staff_list                  view   2      ID, name, address, zip_code, phone, city, country, SID
+staff_list                  view   2      ID, name, address, zip code, phone, city, country, SID
 ```
 
 ## Differences from other sakila variants
@@ -120,9 +120,9 @@ Each MySQL version is published as its own image tag. `latest` tracks the newest
 
 | MySQL     | sakiladb Release | Architecture     | Docker Hub                    | GitHub Container Registry             |
 |-----------|------------------|------------------|-------------------------------|---------------------------------------|
-| 8 (8.4.x) | `v8.0.2`         | `amd64`, `arm64` | `sakiladb/mysql:8`, `:latest` | `ghcr.io/sakiladb/mysql:8`, `:latest` |
-| 5.7       | `v5.7.2`         | `amd64`          | `sakiladb/mysql:5.7`          | `ghcr.io/sakiladb/mysql:5.7`          |
-| 5.6       | `v5.6.2`         | `amd64`          | `sakiladb/mysql:5.6`          | `ghcr.io/sakiladb/mysql:5.6`          |
+| 8 (8.4.x) | `v8.0.3`         | `amd64`, `arm64` | `sakiladb/mysql:8`, `:latest` | `ghcr.io/sakiladb/mysql:8`, `:latest` |
+| 5.7       | `v5.7.3`         | `amd64`          | `sakiladb/mysql:5.7`          | `ghcr.io/sakiladb/mysql:5.7`          |
+| 5.6       | `v5.6.3`         | `amd64`          | `sakiladb/mysql:5.6`          | `ghcr.io/sakiladb/mysql:5.6`          |
 
 The tag `8` follows MySQL's modern major-version scheme and tracks the newest 8-series LTS (currently
 **8.4**); `5.6` and `5.7` keep MySQL's legacy `major.minor` naming (where the minor was the de-facto
@@ -149,8 +149,10 @@ version — the version is derived from the tag, so there are no per-version bra
 
 ### 2026-06-25
 
-- **`customer_list` / `staff_list` zip column renamed `zip code` → `zip_code`** (`v5.6.2`, `v5.7.2`,
-  `v8.0.2`) — drops the space so the column is addressable unquoted, matching the rest of the family.
+- **`customer_list` / `staff_list` zip column kept as canonical `zip code`** (`v5.6.3`, `v5.7.3`,
+  `v8.0.3`). An interim `v*.2` renamed it to `zip_code`; that was reverted — `zip code` (with the
+  space) is the form in upstream MySQL Sakila **and** pagila (a deliberate spaced-identifier feature),
+  so it's preserved.
 - **Modernized as a consistent sakiladb test fixture.** Removed the spatial `address.location`
   column (and its data) so `address` is 8 columns across the family — the one trim from upstream
   MySQL Sakila. Republished `5.6`, `5.7`, and `8`.
