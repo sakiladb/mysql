@@ -118,11 +118,11 @@ variants reproduce it structurally.
 Each MySQL version is published as its own image tag. `latest` tracks the newest version
 (currently 8).
 
-| MySQL     | sakiladb Release | Docker Hub                    | GitHub Container Registry             |
-|-----------|------------------|-------------------------------|---------------------------------------|
-| 8 (8.4.x) | `v8.0.1`         | `sakiladb/mysql:8`, `:latest` | `ghcr.io/sakiladb/mysql:8`, `:latest` |
-| 5.7       | `v5.7.1`         | `sakiladb/mysql:5.7`          | `ghcr.io/sakiladb/mysql:5.7`          |
-| 5.6       | `v5.6.1`         | `sakiladb/mysql:5.6`          | `ghcr.io/sakiladb/mysql:5.6`          |
+| MySQL     | sakiladb Release | Architecture     | Docker Hub                    | GitHub Container Registry             |
+|-----------|------------------|------------------|-------------------------------|---------------------------------------|
+| 8 (8.4.x) | `v8.0.1`         | `amd64`, `arm64` | `sakiladb/mysql:8`, `:latest` | `ghcr.io/sakiladb/mysql:8`, `:latest` |
+| 5.7       | `v5.7.1`         | `amd64`          | `sakiladb/mysql:5.7`          | `ghcr.io/sakiladb/mysql:5.7`          |
+| 5.6       | `v5.6.1`         | `amd64`          | `sakiladb/mysql:5.6`          | `ghcr.io/sakiladb/mysql:5.6`          |
 
 The tag `8` follows MySQL's modern major-version scheme and tracks the newest 8-series LTS (currently
 **8.4**); `5.6` and `5.7` keep MySQL's legacy `major.minor` naming (where the minor was the de-facto
@@ -136,9 +136,8 @@ digits are the MySQL version and the third is the sakiladb revision (`v5.7.0` â†
 
 Every version is published to both [Docker Hub](https://hub.docker.com/r/sakiladb/mysql) and
 [GitHub Container Registry](https://github.com/sakiladb/mysql/pkgs/container/mysql), and is signed
-with [cosign](https://github.com/sigstore/cosign). **Architectures vary by version:** `8` is
-multi-arch (`linux/amd64`, `linux/arm64`); `5.6` and `5.7` are `amd64`-only (MySQL published no
-arm64 base images for those).
+with [cosign](https://github.com/sigstore/cosign). `5.6` and `5.7` are `amd64`-only because MySQL
+published no arm64 base images for those versions.
 
 ## Releasing a new version
 
