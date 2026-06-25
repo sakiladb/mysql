@@ -116,17 +116,18 @@ variants reproduce it structurally.
 ## Available versions
 
 Each MySQL version is published as its own image tag. `latest` tracks the newest version
-(currently 8).
+(currently 9).
 
 | MySQL     | sakiladb Release | Architecture     | Docker Hub                    | GitHub Container Registry             |
 |-----------|------------------|------------------|-------------------------------|---------------------------------------|
-| 8 (8.4.x) | `v8.0.3`         | `amd64`, `arm64` | `sakiladb/mysql:8`, `:latest` | `ghcr.io/sakiladb/mysql:8`, `:latest` |
+| 9 (9.7.x) | `v9.0.0`         | `amd64`, `arm64` | `sakiladb/mysql:9`, `:latest` | `ghcr.io/sakiladb/mysql:9`, `:latest` |
+| 8 (8.4.x) | `v8.0.3`         | `amd64`, `arm64` | `sakiladb/mysql:8`            | `ghcr.io/sakiladb/mysql:8`            |
 | 5.7       | `v5.7.3`         | `amd64`          | `sakiladb/mysql:5.7`          | `ghcr.io/sakiladb/mysql:5.7`          |
 | 5.6       | `v5.6.3`         | `amd64`          | `sakiladb/mysql:5.6`          | `ghcr.io/sakiladb/mysql:5.6`          |
 
-The tag `8` follows MySQL's modern major-version scheme and tracks the newest 8-series LTS (currently
-**8.4**); `5.6` and `5.7` keep MySQL's legacy `major.minor` naming (where the minor was the de-facto
-major). A future `9` would map to MySQL 9 and take `latest`.
+The tags `9` and `8` follow MySQL's modern major-version scheme: `9` tracks the **9.7 LTS** (the newest
+LTS, which supersedes 8.4) and `8` tracks the **8.4 LTS**; `5.6` and `5.7` keep MySQL's legacy
+`major.minor` naming (where the minor was the de-facto major).
 
 **sakiladb Release** is the git tag the current image was built from (see
 [releases](https://github.com/sakiladb/mysql/releases)). For the modern series the version is
@@ -149,6 +150,9 @@ version — the version is derived from the tag, so there are no per-version bra
 
 ### 2026-06-25
 
+- **MySQL `9` published** (`v9.0.0`) — `sakiladb/mysql:9` tracks the **9.7 LTS** (the
+  newest LTS, GA May 2026, superseding 8.4; MySQL 8.0 reached EOL April 2026). `latest` now points at
+  `9`. Multi-arch, full fixture intact (16 tables + 7 views, working `FULLTEXT` on `film_text`).
 - **`customer_list` / `staff_list` zip column kept as canonical `zip code`** (`v5.6.3`, `v5.7.3`,
   `v8.0.3`). An interim `v*.2` renamed it to `zip_code`; that was reverted — `zip code` (with the
   space) is the form in upstream MySQL Sakila **and** pagila (a deliberate spaced-identifier feature),

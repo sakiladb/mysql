@@ -24,7 +24,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
   # The newest MySQL version label: the single source of truth for which release
   # gets the `latest` tag. Bump this when releasing a new newest version.
-  LATEST_VERSION: "8"
+  LATEST_VERSION: "9"
 
 
 jobs:

@@ -1,7 +1,7 @@
 # MySQL version to build. The CI release workflow overrides this per release,
-# deriving it from the git tag (e.g. v8.0.1 -> 8, v5.7.1 -> 5.7). The default is
-# the newest version, for convenient local `docker build`.
-ARG MYSQL_VERSION=8
+# deriving it from the git tag (e.g. v9.0.0 -> 9, v8.0.1 -> 8, v5.7.1 -> 5.7).
+# The default is the newest version, for convenient local `docker build`.
+ARG MYSQL_VERSION=9
 
 FROM mysql:${MYSQL_VERSION} AS builder
 ENV MYSQL_ROOT_PASSWORD=p_ssW0rd
