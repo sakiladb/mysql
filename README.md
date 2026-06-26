@@ -120,10 +120,10 @@ Each MySQL version is published as its own image tag. `latest` tracks the newest
 
 | MySQL     | sakiladb Release | Architecture     | Docker Hub                    | GitHub Container Registry             |
 |-----------|------------------|------------------|-------------------------------|---------------------------------------|
-| 9 (9.7.x) | `v9.0.1`         | `amd64`, `arm64` | `sakiladb/mysql:9`, `:latest` | `ghcr.io/sakiladb/mysql:9`, `:latest` |
-| 8 (8.4.x) | `v8.0.4`         | `amd64`, `arm64` | `sakiladb/mysql:8`            | `ghcr.io/sakiladb/mysql:8`            |
-| 5.7       | `v5.7.4`         | `amd64`          | `sakiladb/mysql:5.7`          | `ghcr.io/sakiladb/mysql:5.7`          |
-| 5.6       | `v5.6.4`         | `amd64`          | `sakiladb/mysql:5.6`          | `ghcr.io/sakiladb/mysql:5.6`          |
+| 9 (9.7.x) | `v9.0.2`         | `amd64`, `arm64` | `sakiladb/mysql:9`, `:latest` | `ghcr.io/sakiladb/mysql:9`, `:latest` |
+| 8 (8.4.x) | `v8.0.5`         | `amd64`, `arm64` | `sakiladb/mysql:8`            | `ghcr.io/sakiladb/mysql:8`            |
+| 5.7       | `v5.7.5`         | `amd64`          | `sakiladb/mysql:5.7`          | `ghcr.io/sakiladb/mysql:5.7`          |
+| 5.6       | `v5.6.5`         | `amd64`          | `sakiladb/mysql:5.6`          | `ghcr.io/sakiladb/mysql:5.6`          |
 
 The tags `9` and `8` follow MySQL's modern major-version scheme: `9` tracks the **9.7 LTS** (the newest
 LTS, which supersedes 8.4) and `8` tracks the **8.4 LTS**; `5.6` and `5.7` keep MySQL's legacy
@@ -147,6 +147,13 @@ version — the version is derived from the tag, so there are no per-version bra
 [CLAUDE.md](./CLAUDE.md) for the full, repeatable procedure.
 
 ## Changelog
+
+### 2026-06-26
+
+- **Restored faithful original data** (`v5.6.5`, `v5.7.5`, `v8.0.5`, `v9.0.2`) — the Sakila data is now
+  byte-identical to the original MySQL Sakila: the Unicode accents the lineage had stripped from
+  international place names (e.g. `Réunion`, `Coruña`, `Huánuco`) are restored. The object set is
+  unchanged (16 tables + 7 views). Republished all versions.
 
 ### 2026-06-25
 
