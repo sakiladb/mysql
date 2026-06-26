@@ -150,7 +150,7 @@ version — the version is derived from the tag, so there are no per-version bra
 
 ### 2026-06-26
 
-- **Restored faithful original data** (`v5.6.5`, `v5.7.5`, `v8.0.5`, `v9.0.2`) — the Sakila data is now
+- **Restored faithful original data** (`v5.6.5`, `v5.7.5`, `v8.0.5`, `v9.0.2`). The Sakila data is now
   byte-identical to the original MySQL Sakila: the Unicode accents the lineage had stripped from
   international place names (e.g. `Réunion`, `Coruña`, `Huánuco`) are restored. The object set is
   unchanged (16 tables + 7 views). Republished all versions.
