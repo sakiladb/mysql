@@ -120,10 +120,10 @@ Each MySQL version is published as its own image tag. `latest` tracks the newest
 
 | MySQL     | sakiladb Release | Architecture     | Docker Hub                    | GitHub Container Registry             |
 |-----------|------------------|------------------|-------------------------------|---------------------------------------|
-| 9 (9.7.x) | `v9.0.0`         | `amd64`, `arm64` | `sakiladb/mysql:9`, `:latest` | `ghcr.io/sakiladb/mysql:9`, `:latest` |
-| 8 (8.4.x) | `v8.0.3`         | `amd64`, `arm64` | `sakiladb/mysql:8`            | `ghcr.io/sakiladb/mysql:8`            |
-| 5.7       | `v5.7.3`         | `amd64`          | `sakiladb/mysql:5.7`          | `ghcr.io/sakiladb/mysql:5.7`          |
-| 5.6       | `v5.6.3`         | `amd64`          | `sakiladb/mysql:5.6`          | `ghcr.io/sakiladb/mysql:5.6`          |
+| 9 (9.7.x) | `v9.0.1`         | `amd64`, `arm64` | `sakiladb/mysql:9`, `:latest` | `ghcr.io/sakiladb/mysql:9`, `:latest` |
+| 8 (8.4.x) | `v8.0.4`         | `amd64`, `arm64` | `sakiladb/mysql:8`            | `ghcr.io/sakiladb/mysql:8`            |
+| 5.7       | `v5.7.4`         | `amd64`          | `sakiladb/mysql:5.7`          | `ghcr.io/sakiladb/mysql:5.7`          |
+| 5.6       | `v5.6.4`         | `amd64`          | `sakiladb/mysql:5.6`          | `ghcr.io/sakiladb/mysql:5.6`          |
 
 The tags `9` and `8` follow MySQL's modern major-version scheme: `9` tracks the **9.7 LTS** (the newest
 LTS, which supersedes 8.4) and `8` tracks the **8.4 LTS**; `5.6` and `5.7` keep MySQL's legacy
@@ -150,6 +150,10 @@ version — the version is derived from the tag, so there are no per-version bra
 
 ### 2026-06-25
 
+- **Deterministic view output** (`v5.6.4`, `v5.7.4`, `v8.0.4`, `v9.0.1`) — `film_list` and
+  `nicer_but_slower_film_list` now sort their `GROUP_CONCAT` cast lists by actor name (`actor_info`
+  was already ordered), so the views render byte-identically across the sakiladb family. Republished
+  all versions.
 - **MySQL `9` published** (`v9.0.0`) — `sakiladb/mysql:9` tracks the **9.7 LTS** (the
   newest LTS, GA May 2026, superseding 8.4; MySQL 8.0 reached EOL April 2026). `latest` now points at
   `9`. Multi-arch, full fixture intact (16 tables + 7 views, working `FULLTEXT` on `film_text`).
