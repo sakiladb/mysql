@@ -48,7 +48,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       # Determine which MySQL version to build, as a "version label" that is both
       # the published Docker tag and the `mysql:<label>` base image:
