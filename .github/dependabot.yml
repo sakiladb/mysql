@@ -9,3 +9,16 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
+
+  # Keep the GitHub Actions in docker-publish.yml current. (The original
+  # config tracked only the Docker base image, not the workflow actions,
+  # which is how CI action versions drifted across the family.)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      github-actions:
+        update-types:
+          - "minor"
+          - "patch"
