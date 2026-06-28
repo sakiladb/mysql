@@ -1,3 +1,8 @@
+# check=skip=SecretsUsedInArgOrEnv
+# ^ The *_PASSWORD values below are the public, documented Sakila fixture
+#   credential (p_ssW0rd) — these are throwaway test-fixture images with a
+#   fixed, published password, not a secret. This lint rule is skipped.
+
 # MySQL version to build. The CI release workflow overrides this per release,
 # deriving it from the git tag (e.g. v9.0.0 -> 9, v8.0.1 -> 8, v5.7.1 -> 5.7).
 # The default is the newest version, for convenient local `docker build`.
