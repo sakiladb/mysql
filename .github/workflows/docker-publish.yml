@@ -27,6 +27,10 @@ env:
   LATEST_VERSION: "9"
 
 
+# Third-party actions are SHA-pinned (with version comment) to defend
+# against tag-move attacks on a compromised action repo. GitHub-owned
+# actions/* are pinned by major - they're considered trusted. Dependabot
+# (.github/dependabot.yml) bumps the pins (SHA + comment) automatically.
 jobs:
   build:
 
@@ -91,20 +95,20 @@ jobs:
       # Pinned to v3 (cosign v2.x) so we get the current Sigstore TUF root.
       - name: Install cosign
         if: ${{ startsWith(github.ref, 'refs/tags/v') && github.event_name != 'pull_request' }}
-        uses: sigstore/cosign-installer@v3
+        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6  # v4.1.2
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v4
+        uses: docker/setup-qemu-action@06116385d9baf250c9f4dcb4858b16962ea869c3  # v4.1.0
 
       - name: Setup Docker buildx
-        uses: docker/setup-buildx-action@v4
+        uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd  # v4.0.0
         with:
           platforms: linux/amd64,linux/arm64
 
       # Login against Docker Hub
       # https://github.com/docker/login-action
       - name: Log into Docker Hub
-        uses: docker/login-action@v4
+        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121  # v4.1.0
         with:
           registry: ${{ env.REGISTRY_DOCKERHUB }}
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -112,7 +116,7 @@ jobs:
 
       # Login against GitHub Container Registry
       - name: Log into GHCR
-        uses: docker/login-action@v4
+        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121  # v4.1.0
         with:
           registry: ${{ env.REGISTRY_GHCR }}
           username: ${{ github.actor }}
@@ -122,7 +126,7 @@ jobs:
       # https://github.com/docker/metadata-action
       - name: Extract Docker metadata
         id: meta
-        uses: docker/metadata-action@v6
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf  # v6.0.0
         with:
           images: |
             ${{ env.REGISTRY_DOCKERHUB }}/${{ env.IMAGE_NAME }}
@@ -142,7 +146,7 @@ jobs:
       # https://github.com/docker/build-push-action
       - name: Build and push Docker image
         id: build-and-push
-        uses: docker/build-push-action@v7
+        uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f  # v7.1.0
         with:
           context: .
           build-args: |
