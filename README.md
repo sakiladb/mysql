@@ -120,7 +120,7 @@ Each MySQL version is published as its own image tag. `latest` tracks the newest
 
 | MySQL     | sakiladb Release | Architecture     | Docker Hub                    | GitHub Container Registry             |
 |-----------|------------------|------------------|-------------------------------|---------------------------------------|
-| 9 (9.7.x) | `v9.0.2`         | `amd64`, `arm64` | [`sakiladb/mysql:9`](https://hub.docker.com/r/sakiladb/mysql), [`:latest`](https://hub.docker.com/r/sakiladb/mysql) | [`ghcr.io/sakiladb/mysql:9`](https://github.com/sakiladb/mysql/pkgs/container/mysql), [`:latest`](https://github.com/sakiladb/mysql/pkgs/container/mysql) |
+| 9 (9.7.x) | `v9.0.3`         | `amd64`, `arm64` | [`sakiladb/mysql:9`](https://hub.docker.com/r/sakiladb/mysql), [`:latest`](https://hub.docker.com/r/sakiladb/mysql) | [`ghcr.io/sakiladb/mysql:9`](https://github.com/sakiladb/mysql/pkgs/container/mysql), [`:latest`](https://github.com/sakiladb/mysql/pkgs/container/mysql) |
 | 8 (8.4.x) | `v8.0.5`         | `amd64`, `arm64` | [`sakiladb/mysql:8`](https://hub.docker.com/r/sakiladb/mysql)            | [`ghcr.io/sakiladb/mysql:8`](https://github.com/sakiladb/mysql/pkgs/container/mysql)            |
 | 5.7       | `v5.7.5`         | `amd64`          | [`sakiladb/mysql:5.7`](https://hub.docker.com/r/sakiladb/mysql)          | [`ghcr.io/sakiladb/mysql:5.7`](https://github.com/sakiladb/mysql/pkgs/container/mysql)          |
 | 5.6       | `v5.6.5`         | `amd64`          | [`sakiladb/mysql:5.6`](https://hub.docker.com/r/sakiladb/mysql)          | [`ghcr.io/sakiladb/mysql:5.6`](https://github.com/sakiladb/mysql/pkgs/container/mysql)          |
@@ -147,6 +147,12 @@ version — the version is derived from the tag, so there are no per-version bra
 [CLAUDE.md](./CLAUDE.md) for the full, repeatable procedure.
 
 ## Changelog
+
+### 2026-06-28
+
+- **Maintenance release** (`v9.0.3`): CI and supply-chain hardening (release-gated registry login,
+  SHA-pinned third-party actions, Dependabot for GitHub Actions). The Sakila dataset and schema are
+  unchanged from the previous release.
 
 ### 2026-06-26
 
