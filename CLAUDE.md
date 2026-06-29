@@ -5,7 +5,7 @@ Maintainer guide for **`sakiladb/mysql`** — a MySQL Docker image preloaded wit
 [Docker Hub](https://hub.docker.com/r/sakiladb/mysql) and
 [GitHub Container Registry](https://github.com/sakiladb/mysql/pkgs/container/mysql).
 
-> One of the [`sakiladb`](https://github.com/sakiladb) image family (`postgres`, `mysql`,
+> One of the [`sakiladb`](https://github.com/sakiladb) image family (`postgres`, `mysql`, `mariadb`,
 > `sqlserver`, `oracle`, `clickhouse`, `rqlite`). The release machinery in
 > [How releases work](#how-releases-work) is **shared across the family** (the reference template
 > lives in [`sakiladb/postgres`](https://github.com/sakiladb/postgres)); the build details in
