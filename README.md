@@ -120,10 +120,10 @@ Each MySQL version is published as its own image tag. `latest` tracks the newest
 
 | MySQL     | sakiladb Release | Architecture     | Docker Hub                    | GitHub Container Registry             |
 |-----------|------------------|------------------|-------------------------------|---------------------------------------|
-| 9 (9.7.x) | `v9.0.2`         | `amd64`, `arm64` | `sakiladb/mysql:9`, `:latest` | `ghcr.io/sakiladb/mysql:9`, `:latest` |
-| 8 (8.4.x) | `v8.0.5`         | `amd64`, `arm64` | `sakiladb/mysql:8`            | `ghcr.io/sakiladb/mysql:8`            |
-| 5.7       | `v5.7.5`         | `amd64`          | `sakiladb/mysql:5.7`          | `ghcr.io/sakiladb/mysql:5.7`          |
-| 5.6       | `v5.6.5`         | `amd64`          | `sakiladb/mysql:5.6`          | `ghcr.io/sakiladb/mysql:5.6`          |
+| 9 (9.7.x) | `v9.0.2`         | `amd64`, `arm64` | [`sakiladb/mysql:9`](https://hub.docker.com/r/sakiladb/mysql), [`:latest`](https://hub.docker.com/r/sakiladb/mysql) | [`ghcr.io/sakiladb/mysql:9`](https://github.com/sakiladb/mysql/pkgs/container/mysql), [`:latest`](https://github.com/sakiladb/mysql/pkgs/container/mysql) |
+| 8 (8.4.x) | `v8.0.5`         | `amd64`, `arm64` | [`sakiladb/mysql:8`](https://hub.docker.com/r/sakiladb/mysql)            | [`ghcr.io/sakiladb/mysql:8`](https://github.com/sakiladb/mysql/pkgs/container/mysql)            |
+| 5.7       | `v5.7.5`         | `amd64`          | [`sakiladb/mysql:5.7`](https://hub.docker.com/r/sakiladb/mysql)          | [`ghcr.io/sakiladb/mysql:5.7`](https://github.com/sakiladb/mysql/pkgs/container/mysql)          |
+| 5.6       | `v5.6.5`         | `amd64`          | [`sakiladb/mysql:5.6`](https://hub.docker.com/r/sakiladb/mysql)          | [`ghcr.io/sakiladb/mysql:5.6`](https://github.com/sakiladb/mysql/pkgs/container/mysql)          |
 
 The tags `9` and `8` follow MySQL's modern major-version scheme: `9` tracks the **9.7 LTS** (the newest
 LTS, which supersedes 8.4) and `8` tracks the **8.4 LTS**; `5.6` and `5.7` keep MySQL's legacy
