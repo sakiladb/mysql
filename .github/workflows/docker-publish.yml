@@ -225,6 +225,12 @@ jobs:
       # against the multi-arch index digest.
       - name: Generate SBOM
         if: ${{ env.IS_RELEASE == 'true' }}
+        # Package-only SBOM. Syft's default file cataloging enumerates every file
+        # in the image (23k+ here, mostly the baked data dir), which pushed the
+        # SPDX past actions/attest's 16 MiB predicate limit. selection: none keeps
+        # just the packages (~150), which is what an SBOM is actually for.
+        env:
+          SYFT_FILE_METADATA_SELECTION: none
         uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610  # v0.24.0
         with:
           image: ${{ env.REGISTRY_DOCKERHUB }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}
