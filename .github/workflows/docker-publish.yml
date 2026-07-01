@@ -225,10 +225,12 @@ jobs:
       # against the multi-arch index digest.
       - name: Generate SBOM
         if: ${{ env.IS_RELEASE == 'true' }}
-        # Package-only SBOM. Syft's default file cataloging enumerates every file
-        # in the image (23k+ here, mostly the baked data dir), which pushed the
-        # SPDX past actions/attest's 16 MiB predicate limit. selection: none keeps
-        # just the packages (~150), which is what an SBOM is actually for.
+        # Strip per-file metadata from the SBOM. Syft's default file cataloging
+        # records digests/metadata for every file in the image; on larger images
+        # that pushes the SPDX past actions/attest's 16 MiB predicate limit. This
+        # keeps the component (package) inventory, which is what vuln scanners
+        # consume, and drops the heavy per-file data. (Not strictly file-free:
+        # lightweight package-owned file refs remain, but the size is tiny.)
         env:
           SYFT_FILE_METADATA_SELECTION: none
         uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610  # v0.24.0
