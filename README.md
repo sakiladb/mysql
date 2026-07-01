@@ -31,6 +31,11 @@ until [ "$(docker inspect -f '{{.State.Health.Status}}' sakila)" = healthy ]; do
 In Docker Compose, gate dependents with `depends_on: { condition: service_healthy }`. (MySQL also
 logs its native `ready for connections` line.)
 
+> [!TIP]
+> Building or testing on GitHub Actions? Pull from GHCR (`ghcr.io/sakiladb/mysql`). Docker Hub
+> rate-limits pulls and CI runners share IP addresses, so the limit is reached quickly; GHCR isn't
+> throttled the same way, especially from within GitHub's network.
+
 ## Connection
 
 | Setting    | Value       |
