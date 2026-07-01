@@ -194,3 +194,18 @@ jobs:
           TAGS: ${{ steps.meta.outputs.tags }}
           DIGEST: ${{ steps.build-and-push.outputs.digest }}
         run: echo "$TAGS" | xargs -I {} cosign sign --yes {}@"$DIGEST"
+
+      # Sync this repo's README to the Docker Hub repository's full description
+      # on release (cosmetic; the image is already published above). The curated
+      # short description is left untouched (no short-description input).
+      # continue-on-error: a description-API failure (e.g. DOCKER_PASSWORD is a
+      # PAT lacking description-write scope) must never fail a release that has
+      # already pushed the image; check the first release's logs to confirm sync.
+      - name: Sync README to Docker Hub description
+        if: ${{ env.IS_RELEASE == 'true' }}
+        continue-on-error: true
+        uses: peter-evans/dockerhub-description@1b9a80c056b620d92cedb9d9b5a223409c68ddfa  # v5.0.0
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: ${{ github.repository }}
