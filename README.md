@@ -126,9 +126,9 @@ Each MySQL version is published as its own image tag. `latest` tracks the newest
 | MySQL     | sakiladb Release | Architecture     | Docker Hub                    | GitHub Container Registry             |
 |-----------|------------------|------------------|-------------------------------|---------------------------------------|
 | 9 (9.7.x) | `v9.0.5`         | `amd64`, `arm64` | [`sakiladb/mysql:9`](https://hub.docker.com/r/sakiladb/mysql), [`:latest`](https://hub.docker.com/r/sakiladb/mysql) | [`ghcr.io/sakiladb/mysql:9`](https://github.com/sakiladb/mysql/pkgs/container/mysql), [`:latest`](https://github.com/sakiladb/mysql/pkgs/container/mysql) |
-| 8 (8.4.x) | `v8.0.5`         | `amd64`, `arm64` | [`sakiladb/mysql:8`](https://hub.docker.com/r/sakiladb/mysql)            | [`ghcr.io/sakiladb/mysql:8`](https://github.com/sakiladb/mysql/pkgs/container/mysql)            |
-| 5.7       | `v5.7.5`         | `amd64`          | [`sakiladb/mysql:5.7`](https://hub.docker.com/r/sakiladb/mysql)          | [`ghcr.io/sakiladb/mysql:5.7`](https://github.com/sakiladb/mysql/pkgs/container/mysql)          |
-| 5.6       | `v5.6.5`         | `amd64`          | [`sakiladb/mysql:5.6`](https://hub.docker.com/r/sakiladb/mysql)          | [`ghcr.io/sakiladb/mysql:5.6`](https://github.com/sakiladb/mysql/pkgs/container/mysql)          |
+| 8 (8.4.x) | `v8.0.6`         | `amd64`, `arm64` | [`sakiladb/mysql:8`](https://hub.docker.com/r/sakiladb/mysql)            | [`ghcr.io/sakiladb/mysql:8`](https://github.com/sakiladb/mysql/pkgs/container/mysql)            |
+| 5.7       | `v5.7.6`         | `amd64`          | [`sakiladb/mysql:5.7`](https://hub.docker.com/r/sakiladb/mysql)          | [`ghcr.io/sakiladb/mysql:5.7`](https://github.com/sakiladb/mysql/pkgs/container/mysql)          |
+| 5.6       | `v5.6.6`         | `amd64`          | [`sakiladb/mysql:5.6`](https://hub.docker.com/r/sakiladb/mysql)          | [`ghcr.io/sakiladb/mysql:5.6`](https://github.com/sakiladb/mysql/pkgs/container/mysql)          |
 
 The tags `9` and `8` follow MySQL's modern major-version scheme: `9` tracks the **9.7 LTS** (the newest
 LTS, which supersedes 8.4) and `8` tracks the **8.4 LTS**; `5.6` and `5.7` keep MySQL's legacy
@@ -157,11 +157,12 @@ version — the version is derived from the tag, so there are no per-version bra
 
 ### 2026-06-30
 
-- **Supply-chain attestations** (`v9.0.5`): published images now carry
-  [SLSA build provenance](https://slsa.dev/) and an SPDX [SBOM](https://spdx.dev/)
-  attestation, alongside the existing cosign signature (pushed to Docker Hub and
-  GHCR as OCI referrers and to GitHub's attestation store; verify with
-  `gh attestation verify`). The README is also synced to the Docker Hub
+- **Supply-chain attestations** (`v9.0.5`, with the `8` / `5.7` / `5.6` lines
+  republished as `v8.0.6` / `v5.7.6` / `v5.6.6` so every supported version carries
+  it): published images now carry [SLSA build provenance](https://slsa.dev/) and an
+  SPDX [SBOM](https://spdx.dev/) attestation, alongside the existing cosign signature
+  (pushed to Docker Hub and GHCR as OCI referrers and to GitHub's attestation store;
+  verify with `gh attestation verify`). The README is also synced to the Docker Hub
   description on release. The Sakila dataset and schema are unchanged.
 
 ### 2026-06-28
