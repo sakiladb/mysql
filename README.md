@@ -142,7 +142,7 @@ digits are the MySQL version and the third is the sakiladb revision (`v5.7.0` â†
 
 Every version is published to both [Docker Hub](https://hub.docker.com/r/sakiladb/mysql) and
 [GitHub Container Registry](https://github.com/sakiladb/mysql/pkgs/container/mysql), and is signed
-with [cosign](https://github.com/sigstore/cosign); each image also carries
+with [cosign](https://github.com/sigstore/cosign). Each image also carries
 [SLSA build provenance](https://slsa.dev/) and an SPDX [SBOM](https://spdx.dev/) attestation
 (verify with `gh attestation verify`). `5.6` and `5.7` are `amd64`-only because MySQL
 published no arm64 base images for those versions.
