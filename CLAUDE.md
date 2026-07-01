@@ -129,7 +129,9 @@ referrers on Docker Hub and GHCR (what Docker Scout reads). Two load-bearing got
 - **GHCR has no OCI Referrers API** — it uses the referrers-tag fallback (`sha256-<digest>`).
   Transparent to `gh attestation verify` and Scout; only a raw referrers-API `curl` is affected.
 
-Verify a release (both should exit 0):
+The release workflow **self-verifies**: a **Verify attestations** step gates the release on both the
+GitHub-store and registry-referrer copies of provenance + SBOM, across both registries (referrer reads
+are retried to absorb post-push lag). To spot-check a published image by hand (both should exit 0):
 
 ```bash
 gh attestation verify oci://ghcr.io/sakiladb/mysql:9 --repo sakiladb/mysql

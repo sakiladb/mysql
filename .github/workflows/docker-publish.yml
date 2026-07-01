@@ -261,6 +261,33 @@ jobs:
           predicate-path: sbom.spdx.json
           push-to-registry: true
 
+      # Independently verify what we just pushed. A green attest step means
+      # "uploaded", not "verifiable" (the deprecated actions/attest-sbom once
+      # uploaded a bundle that didn't verify over OCI), so gate the release on
+      # real verification. GitHub's attestation store is written synchronously
+      # and is the hard gate; the registry referrer (what Docker Scout reads) can
+      # lag a moment after push, so it's retried before failing.
+      - name: Verify attestations
+        if: ${{ env.IS_RELEASE == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DIGEST: ${{ steps.build-and-push.outputs.digest }}
+        run: |
+          set -euo pipefail
+          SPDX=https://spdx.dev/Document
+          # Retry wrapper for registry-referrer reads (eventual-consistency lag).
+          retry() { local n=0; until "$@"; do n=$((n+1)); [ "$n" -ge 5 ] && return 1; echo "not ready (attempt $n), retrying..."; sleep 6; done; }
+          for reg in "$REGISTRY_DOCKERHUB" "$REGISTRY_GHCR"; do
+            ref="oci://$reg/${IMAGE_NAME}@${DIGEST}"
+            echo "::group::verify $ref"
+            gh attestation verify "$ref" --repo "$IMAGE_NAME"                                            # provenance (store)
+            gh attestation verify "$ref" --repo "$IMAGE_NAME" --predicate-type "$SPDX"                   # sbom (store)
+            retry gh attestation verify "$ref" --repo "$IMAGE_NAME" --bundle-from-oci                    # provenance (referrer)
+            retry gh attestation verify "$ref" --repo "$IMAGE_NAME" --bundle-from-oci --predicate-type "$SPDX"  # sbom (referrer)
+            echo "::endgroup::"
+          done
+          echo "All attestations verified (provenance + SBOM, store + referrer) on both registries."
+
       # Sync this repo's README to the Docker Hub repository's full description
       # on release (cosmetic; the image is already published above). The curated
       # short description is left untouched (no short-description input).
