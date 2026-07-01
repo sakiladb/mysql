@@ -63,6 +63,8 @@ jobs:
       # This is used to complete the identity challenge
       # with sigstore/fulcio when running outside of PRs.
       id-token: write
+      # Lets the attest-build-provenance / attest steps write attestations.
+      attestations: write
 
     steps:
       - name: Checkout repository
@@ -194,6 +196,62 @@ jobs:
           TAGS: ${{ steps.meta.outputs.tags }}
           DIGEST: ${{ steps.build-and-push.outputs.digest }}
         run: echo "$TAGS" | xargs -I {} cosign sign --yes {}@"$DIGEST"
+
+      # SLSA build provenance, attached to the pushed image as an OCI referrer.
+      # The digest is identical across registries (same manifest content), so
+      # the two steps differ only in subject-name. Attests an already-pushed
+      # digest, so it's independent of buildx's in-build provenance. Also
+      # recorded in this repo's GitHub attestation store.
+      - name: Attest provenance (Docker Hub)
+        if: ${{ env.IS_RELEASE == 'true' }}
+        uses: actions/attest-build-provenance@v4
+        with:
+          subject-name: ${{ env.REGISTRY_DOCKERHUB }}/${{ env.IMAGE_NAME }}
+          subject-digest: ${{ steps.build-and-push.outputs.digest }}
+          push-to-registry: true
+
+      - name: Attest provenance (GHCR)
+        if: ${{ env.IS_RELEASE == 'true' }}
+        uses: actions/attest-build-provenance@v4
+        with:
+          subject-name: ${{ env.REGISTRY_GHCR }}/${{ env.IMAGE_NAME }}
+          subject-digest: ${{ steps.build-and-push.outputs.digest }}
+          push-to-registry: true
+
+      # Software Bill of Materials: scan the pushed image and attest the SPDX
+      # SBOM to each registry as an OCI referrer, mirroring the provenance steps.
+      # anchore/sbom-action (syft) scans the linux/amd64 image (the runner's
+      # arch); both arches carry the same packages, so one SBOM is attested
+      # against the multi-arch index digest.
+      - name: Generate SBOM
+        if: ${{ env.IS_RELEASE == 'true' }}
+        uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610  # v0.24.0
+        with:
+          image: ${{ env.REGISTRY_DOCKERHUB }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}
+          format: spdx-json
+          output-file: sbom.spdx.json
+
+      # Uses the unified actions/attest (actions/attest-sbom is deprecated). The
+      # SPDX document is the predicate; predicate-type is the SPDX in-toto type.
+      - name: Attest SBOM (Docker Hub)
+        if: ${{ env.IS_RELEASE == 'true' }}
+        uses: actions/attest@v4
+        with:
+          subject-name: ${{ env.REGISTRY_DOCKERHUB }}/${{ env.IMAGE_NAME }}
+          subject-digest: ${{ steps.build-and-push.outputs.digest }}
+          predicate-type: https://spdx.dev/Document
+          predicate-path: sbom.spdx.json
+          push-to-registry: true
+
+      - name: Attest SBOM (GHCR)
+        if: ${{ env.IS_RELEASE == 'true' }}
+        uses: actions/attest@v4
+        with:
+          subject-name: ${{ env.REGISTRY_GHCR }}/${{ env.IMAGE_NAME }}
+          subject-digest: ${{ steps.build-and-push.outputs.digest }}
+          predicate-type: https://spdx.dev/Document
+          predicate-path: sbom.spdx.json
+          push-to-registry: true
 
       # Sync this repo's README to the Docker Hub repository's full description
       # on release (cosmetic; the image is already published above). The curated
