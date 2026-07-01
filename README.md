@@ -125,7 +125,7 @@ Each MySQL version is published as its own image tag. `latest` tracks the newest
 
 | MySQL     | sakiladb Release | Architecture     | Docker Hub                    | GitHub Container Registry             |
 |-----------|------------------|------------------|-------------------------------|---------------------------------------|
-| 9 (9.7.x) | `v9.0.3`         | `amd64`, `arm64` | [`sakiladb/mysql:9`](https://hub.docker.com/r/sakiladb/mysql), [`:latest`](https://hub.docker.com/r/sakiladb/mysql) | [`ghcr.io/sakiladb/mysql:9`](https://github.com/sakiladb/mysql/pkgs/container/mysql), [`:latest`](https://github.com/sakiladb/mysql/pkgs/container/mysql) |
+| 9 (9.7.x) | `v9.0.5`         | `amd64`, `arm64` | [`sakiladb/mysql:9`](https://hub.docker.com/r/sakiladb/mysql), [`:latest`](https://hub.docker.com/r/sakiladb/mysql) | [`ghcr.io/sakiladb/mysql:9`](https://github.com/sakiladb/mysql/pkgs/container/mysql), [`:latest`](https://github.com/sakiladb/mysql/pkgs/container/mysql) |
 | 8 (8.4.x) | `v8.0.5`         | `amd64`, `arm64` | [`sakiladb/mysql:8`](https://hub.docker.com/r/sakiladb/mysql)            | [`ghcr.io/sakiladb/mysql:8`](https://github.com/sakiladb/mysql/pkgs/container/mysql)            |
 | 5.7       | `v5.7.5`         | `amd64`          | [`sakiladb/mysql:5.7`](https://hub.docker.com/r/sakiladb/mysql)          | [`ghcr.io/sakiladb/mysql:5.7`](https://github.com/sakiladb/mysql/pkgs/container/mysql)          |
 | 5.6       | `v5.6.5`         | `amd64`          | [`sakiladb/mysql:5.6`](https://hub.docker.com/r/sakiladb/mysql)          | [`ghcr.io/sakiladb/mysql:5.6`](https://github.com/sakiladb/mysql/pkgs/container/mysql)          |
@@ -142,7 +142,9 @@ digits are the MySQL version and the third is the sakiladb revision (`v5.7.0` â†
 
 Every version is published to both [Docker Hub](https://hub.docker.com/r/sakiladb/mysql) and
 [GitHub Container Registry](https://github.com/sakiladb/mysql/pkgs/container/mysql), and is signed
-with [cosign](https://github.com/sigstore/cosign). `5.6` and `5.7` are `amd64`-only because MySQL
+with [cosign](https://github.com/sigstore/cosign); each image also carries
+[SLSA build provenance](https://slsa.dev/) and an SPDX [SBOM](https://spdx.dev/) attestation
+(verify with `gh attestation verify`). `5.6` and `5.7` are `amd64`-only because MySQL
 published no arm64 base images for those versions.
 
 ## Releasing a new version
@@ -152,6 +154,15 @@ version â€” the version is derived from the tag, so there are no per-version bra
 [CLAUDE.md](./CLAUDE.md) for the full, repeatable procedure.
 
 ## Changelog
+
+### 2026-06-30
+
+- **Supply-chain attestations** (`v9.0.5`): published images now carry
+  [SLSA build provenance](https://slsa.dev/) and an SPDX [SBOM](https://spdx.dev/)
+  attestation, alongside the existing cosign signature (pushed to Docker Hub and
+  GHCR as OCI referrers and to GitHub's attestation store; verify with
+  `gh attestation verify`). The README is also synced to the Docker Hub
+  description on release. The Sakila dataset and schema are unchanged.
 
 ### 2026-06-28
 
